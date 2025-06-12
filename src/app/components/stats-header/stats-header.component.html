@@ -1,1 +1,8 @@
-<p>stats-header works!</p>
+<div class="stats-container">
+	<mat-card *ngFor="let stat of stats" class="stat-card">
+		<mat-card-title>{{stat.title}}</mat-card-title>
+		<mat-card-content>
+			<h2>{{stat.value}}</h2>
+		</mat-card-content>
+	</mat-card>
+</div>

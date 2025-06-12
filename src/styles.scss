@@ -1,4 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+// Importa direttamente dal percorso node_modules
+@import "node_modules/@angular/material/theming";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat-core();
+
+$primary: mat-palette($mat-blue, 800);
+$accent: mat-palette($mat-amber, A200);
+$warn: mat-palette($mat-red);
+
+$theme: mat-dark-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #303030;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.stats-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .stat-card {
+    flex: 1;
+    background-color: #424242;
+
+    mat-card-title {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+}
