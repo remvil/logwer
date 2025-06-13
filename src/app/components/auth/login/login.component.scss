@@ -1,0 +1,109 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+
+  mat-card {
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .login-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #667eea;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    margin: 0;
+    color: #333;
+    font-weight: 500;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-actions {
+  margin-top: 24px;
+
+  .login-button {
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    .login-spinner {
+      margin-right: 8px;
+    }
+  }
+}
+
+.login-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+
+  a {
+    font-size: 14px;
+  }
+}
+
+// Stili per i messaggi di errore/successo
+::ng-deep {
+  .success-snackbar {
+    background-color: #4caf50 !important;
+    color: white !important;
+  }
+
+  .error-snackbar {
+    background-color: #f44336 !important;
+    color: white !important;
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .login-card mat-card {
+    padding: 24px;
+  }
+
+  .login-header .login-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
