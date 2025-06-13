@@ -1,17 +1,28 @@
-<form [formGroup]="filterForm">
-	<mat-form-field appearance="outline">
-		<mat-label>Data inizio</mat-label>
-		<input matInput [matDatepicker]="startPicker" formControlName="start">
-		<mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-		<mat-datepicker #startPicker></mat-datepicker>
+<form [formGroup]="filterForm" class="filter-container">
+
+	<mat-form-field appearance="outline" class="logic-field">
+		<mat-label>Logica filtri</mat-label>
+		<mat-select formControlName="logic">
+			<mat-option value="AND">AND (tutti i filtri)</mat-option>
+			<mat-option value="OR">OR (almeno un filtro)</mat-option>
+		</mat-select>
 	</mat-form-field>
 
-	<mat-form-field appearance="outline">
-		<mat-label>Data fine</mat-label>
-		<input matInput [matDatepicker]="endPicker" formControlName="end">
-		<mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-		<mat-datepicker #endPicker></mat-datepicker>
-	</mat-form-field>
+	<div formGroupName="dateRange" class="date-range-group">
+		<mat-form-field appearance="outline">
+			<mat-label>Data inizio</mat-label>
+			<input matInput [matDatepicker]="startPicker" formControlName="start">
+			<mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+			<mat-datepicker #startPicker></mat-datepicker>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Data fine</mat-label>
+			<input matInput [matDatepicker]="endPicker" formControlName="end">
+			<mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+			<mat-datepicker #endPicker></mat-datepicker>
+		</mat-form-field>
+	</div>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Tipologia</mat-label>
@@ -27,6 +38,14 @@
 		</mat-select>
 	</mat-form-field>
 
-	<button mat-raised-button color="primary" (click)="applyFilters()">Applica</button>
-	<button mat-button (click)="resetFilters()">Reset</button>
+	<mat-form-field appearance="outline">
+		<mat-label>Riferimenti</mat-label>
+		<input matInput formControlName="references" placeholder="Inserisci riferimenti">
+	</mat-form-field>
+
+	<div class="filter-actions">
+		<button mat-raised-button color="primary" (click)="applyFilters()">Applica</button>
+		<button mat-button (click)="resetFilters()">Reset</button>
+	</div>
+
 </form>

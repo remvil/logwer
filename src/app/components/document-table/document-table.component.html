@@ -1,40 +1,110 @@
-<div class="mat-elevation-z8">
-  <mat-form-field appearance="outline">
-    <mat-label>Filtra</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Cerca...">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+<div class="table-container">
+	<!-- Search Field -->
+	<div class="search-container">
+		<mat-form-field appearance="outline">
+			<mat-label>Filtra</mat-label>
+			<input matInput (keyup)="applyFilter($event)" placeholder="Cerca...">
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+	</div>
 
-  <table mat-table [dataSource]="dataSource" matSort>
-    <!-- NomeFile Column -->
-    <ng-container matColumnDef="fileName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>NomeFile Doc.</th>
-      <td mat-cell *matCellDef="let row">{{row.fileName}}</td>
-    </ng-container>
+	<!-- Table with all column definitions -->
+	<div class="mat-elevation-z8">
+		<table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Tipologia Column (con select) -->
-    <ng-container matColumnDef="documentType">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipologia</th>
-      <td mat-cell *matCellDef="let row">
-        <mat-select [(value)]="row.documentType">
-          <mat-option *ngFor="let type of documentTypes" [value]="type">
-            {{type}}
-          </mat-option>
-        </mat-select>
-      </td>
-    </ng-container>
+			<!-- Nome File Column -->
+			<ng-container matColumnDef="fileName">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Nome File</th>
+				<td mat-cell *matCellDef="let row">{{row.fileName}}</td>
+			</ng-container>
 
-    <!-- Altre colonne... -->
-    <ng-container matColumnDef="number">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero</th>
-      <td mat-cell *matCellDef="let row">{{row.number}}</td>
-    </ng-container>
+			<!-- Tipologia Column (with select dropdown) -->
+			<ng-container matColumnDef="documentType">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Tipologia</th>
+				<td mat-cell *matCellDef="let row">
+					<mat-select [(value)]="row.documentType" class="table-select">
+						<mat-option *ngFor="let type of documentTypes" [value]="type">
+							{{type}}
+						</mat-option>
+					</mat-select>
+				</td>
+			</ng-container>
 
-    <!-- Ripeti per tutte le colonne necessarie -->
+			<!-- Numero Column -->
+			<ng-container matColumnDef="number">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Numero</th>
+				<td mat-cell *matCellDef="let row">{{row.number}}</td>
+			</ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+			<!-- Data Column -->
+			<ng-container matColumnDef="date">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+				<td mat-cell *matCellDef="let row">{{row.date | date:'dd/MM/yyyy'}}</td>
+			</ng-container>
 
-  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+			<!-- Pratica Assegnata Column -->
+			<ng-container matColumnDef="assignedPractice">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Pratica</th>
+				<td mat-cell *matCellDef="let row">{{row.assignedPractice}}</td>
+			</ng-container>
+
+			<!-- Riferimenti Column -->
+			<ng-container matColumnDef="references">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Riferimenti</th>
+				<td mat-cell *matCellDef="let row">{{row.references}}</td>
+			</ng-container>
+
+			<!-- Mail ID Column -->
+			<ng-container matColumnDef="mailId">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Mail ID</th>
+				<td mat-cell *matCellDef="let row">{{row.mailId}}</td>
+			</ng-container>
+
+			<!-- Data Mail Column -->
+			<ng-container matColumnDef="mailDate">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Data Mail</th>
+				<td mat-cell *matCellDef="let row">{{row.mailDate | date:'dd/MM/yyyy HH:mm'}}</td>
+			</ng-container>
+
+			<!-- Oggetto Mail Column -->
+			<ng-container matColumnDef="mailSubject">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Oggetto</th>
+				<td mat-cell *matCellDef="let row" class="subject-cell">
+					<span [title]="row.mailSubject">{{row.mailSubject | slice:0:50}}{{row.mailSubject.length > 50 ? '...' :
+						''}}</span>
+				</td>
+			</ng-container>
+
+			<!-- Numero Allegati Column -->
+			<ng-container matColumnDef="attachmentsCount">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Allegati</th>
+				<td mat-cell *matCellDef="let row" class="center-cell">
+					<span class="attachment-badge">{{row.attachmentsCount}}</span>
+				</td>
+			</ng-container>
+
+			<!-- Mittente Column -->
+			<ng-container matColumnDef="sender">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Mittente</th>
+				<td mat-cell *matCellDef="let row">{{row.sender}}</td>
+			</ng-container>
+
+			<!-- Destinatario Column -->
+			<ng-container matColumnDef="recipient">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Destinatario</th>
+				<td mat-cell *matCellDef="let row" class="recipient-cell">
+					<span [title]="row.recipient">{{row.recipient | slice:0:30}}{{row.recipient.length > 30 ? '...' : ''}}</span>
+				</td>
+			</ng-container>
+
+			<!-- Header and Row Definitions -->
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row" [class.selected]="false">
+			</tr>
+		</table>
+
+		<!-- Paginator -->
+		<mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons aria-label="Seleziona pagina">
+		</mat-paginator>
+	</div>
 </div>

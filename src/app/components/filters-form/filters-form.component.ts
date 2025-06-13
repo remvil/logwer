@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-filters-form',
   templateUrl: './filters-form.component.html',
-  styleUrls: ['./filters-form.component.scss']
+  styleUrls: ['./filters-form.component.scss'],
 })
 export class FiltersFormComponent {
   @Output() filtersChanged = new EventEmitter<any>();
-  
+
   filterForm: FormGroup;
   documentTypes = ['Fattura', 'Bolla', 'Contratto', 'Altro'];
   practices = ['22025123456', '22025123457', '22025123458'];
@@ -18,16 +18,20 @@ export class FiltersFormComponent {
     this.filterForm = this.fb.group({
       dateRange: fb.group({
         start: [''],
-        end: ['']
+        end: [''],
       }),
       documentType: [''],
       practice: [''],
-      references: ['']
+      references: [''],
+      logic: ['AND'], // Valore di default
     });
   }
 
   applyFilters() {
-    this.filtersChanged.emit(this.filterForm.value);
+    this.filtersChanged.emit({
+      filters: this.filterForm.value,
+      logic: this.filterForm.value.logic,
+    });
   }
 
   resetFilters() {
